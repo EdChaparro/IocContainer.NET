@@ -17,9 +17,9 @@ namespace IntrepidProducts.IocContainer.Strategy
         public abstract void RegisterTransient(Type fromType, Type concreteType);
         public abstract void RegisterTransient(string key, Type fromType, Type concreteType);
 
-        public abstract void RegisterInstance<T>(T instance);
+        public abstract void RegisterInstance<T>(T instance) where T : class;
         public abstract void RegisterInstance(Type fromType, object instance);
-        public abstract void RegisterInstance<T>(string key, T instance);
+        public abstract void RegisterInstance<T>(string key, T instance) where T : class;
 
         public void Register<I, T>(string key) where T : I, new()
         {
