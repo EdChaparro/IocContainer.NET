@@ -8,6 +8,8 @@
     <AssemblyName>IntrepidProducts.IocContainer.Tests</AssemblyName>
 
     <RootNamespace>IntrepidProducts.IocContainer.Tests</RootNamespace>
+
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
