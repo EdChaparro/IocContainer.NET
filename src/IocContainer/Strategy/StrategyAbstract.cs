@@ -29,23 +29,15 @@ namespace IntrepidProducts.IocContainer.Strategy
         public abstract T Resolve<T>();
         public abstract T Resolve<T>(string key);
         public abstract object Resolve(Type type);
-        public abstract IEnumerable<object> ResolveAll(Type type);
+
+        public abstract IEnumerable<T> ResolveAll<T>();
 
         public abstract void Release(object component);
         public abstract void InitContainer();
 
-        protected bool IgnoreRegisterRequest(Type type)
-        {
-            return IgnoreDuplicateRegisterRequests ? IsRegistered(type) : false;
-        }
-
-        protected bool IgnoreRegisterRequest(string key)
-        {
-            return IgnoreDuplicateRegisterRequests ? IsRegistered(key) : false;
-        }
-
+        public abstract bool IsRegistered<T>();
         public abstract bool IsRegistered(Type type);
 
-        public abstract bool IsRegistered(string key);
+        public abstract bool IsRegistered<T>(string key);
     }
 }
