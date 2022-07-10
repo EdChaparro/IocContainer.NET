@@ -35,16 +35,16 @@ namespace IntrepidProducts.IocContainer.Strategy
             _scope = null;
         }
 
-        public override void RegisterTransient(Type fromType, Type concreteType)
+        public override void RegisterTransient(Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).As(fromType);
+            _builder.RegisterType(concreteType).As(abstractType);
         }
 
-        public override void RegisterTransient(string key, Type fromType, Type concreteType)
+        public override void RegisterTransient(string key, Type abstractType, Type concreteType)
         {
             _builder.RegisterType(concreteType)
-                .Keyed(key, fromType)
-                .As(fromType)
+                .Keyed(key, abstractType)
+                .As(abstractType)
                 .InstancePerDependency();
         }
 
@@ -53,14 +53,14 @@ namespace IntrepidProducts.IocContainer.Strategy
             _builder.RegisterType(type).InstancePerDependency();
         }
 
-        public override void Register(Type fromType, Object obj)
+        public override void Register(Type abstractType, Object obj)
         {
-            _builder.RegisterInstance(obj).As(fromType);
+            _builder.RegisterInstance(obj).As(abstractType);
         }
 
-        public override void Register(Type fromType, Type concreteType, bool useDefaultConstructor)
+        public override void Register(Type abstractType, Type concreteType, bool useDefaultConstructor)
         {
-            Register(fromType, concreteType);
+            Register(abstractType, concreteType);
         }
 
         public override void Register<I, T>()
@@ -73,15 +73,15 @@ namespace IntrepidProducts.IocContainer.Strategy
             Register(type, type);
         }
 
-        public override void Register(Type fromType, Type concreteType)
+        public override void Register(Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).As(fromType).InstancePerLifetimeScope();
+            _builder.RegisterType(concreteType).As(abstractType).InstancePerLifetimeScope();
         }
 
-        public override void Register(string key, Type fromType, Type concreteType)
+        public override void Register(string key, Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).Named(key, fromType)
-                .As(fromType)
+            _builder.RegisterType(concreteType).Named(key, abstractType)
+                .As(abstractType)
                 .InstancePerLifetimeScope();
         }
 

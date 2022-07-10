@@ -16,14 +16,14 @@ namespace IntrepidProducts.IocContainer.Strategy
             _container = new WindsorContainer();
         }
 
-        public override void RegisterTransient(Type fromType, Type concreteType)
+        public override void RegisterTransient(Type abstractType, Type concreteType)
         {
-            RegisterTransient(fromType.ToString(), fromType, concreteType);
+            RegisterTransient(abstractType.ToString(), abstractType, concreteType);
         }
 
-        public override void RegisterTransient(string key, Type fromType, Type concreteType)
+        public override void RegisterTransient(string key, Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
+            _container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType)
                 .Named(key).LifeStyle
                 .Is(LifestyleType.Transient));
@@ -34,14 +34,14 @@ namespace IntrepidProducts.IocContainer.Strategy
             RegisterTransient(type.ToString(), type, type);
         }
 
-        public override void Register(Type fromType, Object obj)
+        public override void Register(Type abstractType, Object obj)
         {
-            _container.Register(Component.For(fromType).ImplementedBy(obj.GetType()).Named(fromType.ToString()));
+            _container.Register(Component.For(abstractType).ImplementedBy(obj.GetType()).Named(abstractType.ToString()));
         }
 
-        public override void Register(Type fromType, Type concreteType, bool useDefaultConstructor)
+        public override void Register(Type abstractType, Type concreteType, bool useDefaultConstructor)
         {
-            Register(fromType, concreteType);
+            Register(abstractType, concreteType);
         }
 
         public override void Register<I, T>()
@@ -54,16 +54,16 @@ namespace IntrepidProducts.IocContainer.Strategy
             Register(type, type);
         }
 
-        public override void Register(Type fromType, Type concreteType)
+        public override void Register(Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
+            _container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType)
                 .LifeStyle.Is(LifestyleType.Singleton));
         }
 
-        public override void Register(string key, Type fromType, Type concreteType)
+        public override void Register(string key, Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
+            _container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType).Named(key)
                 .LifeStyle.Is(LifestyleType.Singleton));
         }
