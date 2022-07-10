@@ -7,15 +7,15 @@ namespace IntrepidProducts.IocContainer.Strategy
     {
         public bool IgnoreDuplicateRegisterRequests { get; set; }
 
-        public abstract void Register(Type fromType, Type concreteType);
-        public abstract void Register(string key, Type fromType, Type concreteType);
+        public abstract void Register(Type abstractType, Type concreteType);
+        public abstract void Register(string key, Type abstractType, Type concreteType);
         public abstract void Register(Type type);
-        public abstract void Register(Type fromType, object obj);
-        public abstract void Register(Type fromType, Type concreteType, bool useDefaultConstructor);
+        public abstract void Register(Type abstractType, object obj);
+        public abstract void Register(Type abstractType, Type concreteType, bool useDefaultConstructor);
         public abstract void Register<I, T>() where T : I, new();
         public abstract void RegisterTransient(Type type);
-        public abstract void RegisterTransient(Type fromType, Type concreteType);
-        public abstract void RegisterTransient(string key, Type fromType, Type concreteType);
+        public abstract void RegisterTransient(Type abstractType, Type concreteType);
+        public abstract void RegisterTransient(string key, Type abstractType, Type concreteType);
 
         public abstract void RegisterInstance<T>(T instance) where T : class;
         public abstract void RegisterInstance(Type fromType, object instance);

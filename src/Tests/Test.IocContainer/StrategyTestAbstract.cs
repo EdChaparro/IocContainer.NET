@@ -10,7 +10,7 @@ namespace IntrepidProducts.IocContainer.Tests
         protected IocTestFactory IocTestFactory { get; set; }
 
         [TestMethod]
-        public void TestIsRegistered()
+        public void ShouldReportWhetherInterfaceIsRegistered()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>());
@@ -19,7 +19,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestIsRegisteredWithKey()
+        public void ShouldReportWhetherKeyIsRegistered()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             iocContainer.InitContainer();
@@ -35,7 +35,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestTransientInstance()
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             Assert.IsNotNull(iocContainer);
@@ -52,7 +52,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestTransientWithKey()
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKey()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             Assert.IsNotNull(iocContainer);
@@ -70,7 +70,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestSingletonInstance()
+        public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             Assert.IsNotNull(iocContainer);
@@ -87,7 +87,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestSingletonInstanceWithKey()
+        public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithKey()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             Assert.IsNotNull(iocContainer);
@@ -105,7 +105,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestRegisterInstance()
+        public void ShouldResolveToProvidedInstanceWhenResolvedWithInterface()
         {
             const string MY_INSTANCE = "MyInstance";
             var originalInstance = new SingletonTestObject { TestProperty = MY_INSTANCE };
@@ -120,7 +120,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void TestRegisterInstanceWithKey()
+        public void ShouldResolveToProvidedInstanceWhenResolvedWithKey()
         {
             const string MY_INSTANCE1_KEY = "MyInstance1";
             const string MY_INSTANCE2_KEY = "MyInstance2";
@@ -144,7 +144,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void ResolveAll()
+        public void ShouldProvideCollectionOfAllObjectsImplementedByAnInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
             var services = iocContainer.ResolveAll<ITransientTest>()
