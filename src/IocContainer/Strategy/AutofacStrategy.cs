@@ -1,42 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using Castle.Core;
-using Castle.MicroKernel.Handlers;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+using Autofac;
+using Autofac.Core.Registration;
 
 namespace IntrepidProducts.IocContainer.Strategy
 {
-    public class CastleWindsorStrategy : StrategyAbstract
+    public class AutofacStrategy : StrategyAbstract
     {
-        private WindsorContainer _container = new WindsorContainer();
+        private ContainerBuilder _builder = new ContainerBuilder();
+
+        private ILifetimeScope _scope;
+        private ILifetimeScope Scope
+        {
+            get
+            {
+                if (_scope == null)
+                {
+                    _scope = _builder.Build().BeginLifetimeScope();
+                }
+
+                return _scope;
+            }
+        }
 
         public override void InitContainer()
         {
-            _container = new WindsorContainer();
+            _builder = new ContainerBuilder();
+
+            if (_scope != null)
+            {
+                _scope.Dispose();
+            }
+
+            _scope = null;
         }
 
         public override void RegisterTransient(Type fromType, Type concreteType)
         {
-            RegisterTransient(fromType.ToString(), fromType, concreteType);
+            _builder.RegisterType(concreteType).As(fromType);
         }
 
         public override void RegisterTransient(string key, Type fromType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
-                .ImplementedBy(concreteType)
-                .Named(key).LifeStyle
-                .Is(LifestyleType.Transient));
+            _builder.RegisterType(concreteType)
+                .Keyed(key, fromType)
+                .As(fromType)
+                .InstancePerDependency();
         }
 
         public override void RegisterTransient(Type type)
         {
-            RegisterTransient(type.ToString(), type, type);
+            _builder.RegisterType(type).InstancePerDependency();
         }
 
         public override void Register(Type fromType, Object obj)
         {
-            _container.Register(Component.For(fromType).ImplementedBy(obj.GetType()).Named(fromType.ToString()));
+            _builder.RegisterInstance(obj).As(fromType);
         }
 
         public override void Register(Type fromType, Type concreteType, bool useDefaultConstructor)
@@ -56,58 +75,56 @@ namespace IntrepidProducts.IocContainer.Strategy
 
         public override void Register(Type fromType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
-                .ImplementedBy(concreteType)
-                .LifeStyle.Is(LifestyleType.Singleton));
+            _builder.RegisterType(concreteType).As(fromType).InstancePerLifetimeScope();
         }
 
         public override void Register(string key, Type fromType, Type concreteType)
         {
-            _container.Register(Component.For(fromType)
-                .ImplementedBy(concreteType).Named(key)
-                .LifeStyle.Is(LifestyleType.Singleton));
+            _builder.RegisterType(concreteType).Named(key, fromType)
+                .As(fromType)
+                .InstancePerLifetimeScope();
         }
 
         public override void RegisterInstance<T>(T instance) where T : class
         {
-            var fromType = typeof(T);
-
-            _container.Register(Component.For<T>().Instance(instance));
+            _builder.RegisterInstance(instance).As<T>().SingleInstance();
         }
 
         public override void RegisterInstance<T>(string key, T instance) where T : class
         {
-            _container.Register(Component.For<T>().Named(key).Instance(instance));
+            _builder.RegisterInstance(instance)
+                .Keyed<T>(key).SingleInstance();
         }
 
         public override void RegisterInstance(Type fromType, object instance)
         {
-            _container.Register(Component.For(fromType).Instance(instance));
+            _builder.RegisterInstance(instance).As(fromType)
+                .InstancePerMatchingLifetimeScope();
         }
 
         public override T Resolve<T>()
         {
-            return (T)_container.Resolve(typeof (T));
+            return Scope.Resolve<T>();
         }
 
         public override T Resolve<T>(string key)
         {
-            return _container.Resolve<T>(key);
+            return Scope.ResolveNamed<T>(key);
         }
 
         public override object Resolve(Type type)
         {
-            return _container.Resolve(type);
+            return Scope.Resolve(type);
         }
 
         public override IEnumerable<T> ResolveAll<T>()
         {
-            return _container.Kernel.ResolveAll<T>();
+            return Scope.Resolve<IEnumerable<T>>();
         }
 
         public override void Release(object component)
         {
-            _container.Release(component);           
+            Scope.Dispose();
         }
 
         public override bool IsRegistered<T>()
@@ -117,9 +134,9 @@ namespace IntrepidProducts.IocContainer.Strategy
                 Resolve<T>();
                 return true;
             }
-            catch (HandlerException)
+            catch (ComponentNotRegisteredException)
             {
-                return true;
+                return false;
             }
 
             catch (Exception)
@@ -135,7 +152,7 @@ namespace IntrepidProducts.IocContainer.Strategy
                 Resolve(type);
                 return true;
             }
-            catch (HandlerException)
+            catch (ComponentNotRegisteredException)
             {
                 return true;
             }
@@ -153,7 +170,7 @@ namespace IntrepidProducts.IocContainer.Strategy
                 Resolve<T>(key);
                 return true;
             }
-            catch (HandlerException)
+            catch (ComponentNotRegisteredException)
             {
                 return false;
             }

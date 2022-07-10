@@ -10,19 +10,12 @@ namespace IntrepidProducts.IocContainer.Tests
         protected IocTestFactory IocTestFactory { get; set; }
 
         [TestMethod]
-        public void TestCheckForDuplicatesInitiallyFalse()
-        {
-            var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsFalse(iocContainer.IgnoreDuplicateRegisterRequests);
-        }
-
-        [TestMethod]
         public void TestIsRegistered()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsTrue(iocContainer.IsRegistered(typeof(ITransientTest)));
+            Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>());
             iocContainer.InitContainer();
-            Assert.IsFalse(iocContainer.IsRegistered(typeof(ITransientTest)));
+            Assert.IsFalse(iocContainer.IsRegistered<ITransientTest>());
         }
 
         [TestMethod]
@@ -32,78 +25,13 @@ namespace IntrepidProducts.IocContainer.Tests
             iocContainer.InitContainer();
             const string KEY = "MyKey";
 
-            Assert.IsFalse(iocContainer.IsRegistered(KEY));
-
-            iocContainer.Register(KEY, typeof(ITransientTest), typeof(TransientTestObject));
-            Assert.IsTrue(iocContainer.IsRegistered(KEY));
-        }
-
-        [TestMethod]
-        public void TestIgnoreDuplicateRegistrations()
-        {
-            var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
-
-            var testObject = iocContainer.Resolve<IIocTestSingleton>();
-            Assert.IsNotNull(iocContainer);
-            Assert.IsNull(testObject.TestProperty);
-
-            const string TEST_VALUE = "TestValue";
-            testObject.TestProperty = TEST_VALUE;
-
-            testObject = iocContainer.Resolve<IIocTestSingleton>();
-            Assert.AreEqual(TEST_VALUE, testObject.TestProperty); //Singleton retains property values
-
-            iocContainer.IgnoreDuplicateRegisterRequests = true;
-            iocContainer.Register<IIocTestSingleton, SingletonTestObject>(); //Container should ignore this Register request
-            testObject = iocContainer.Resolve<IIocTestSingleton>();
-            Assert.AreEqual(TEST_VALUE, testObject.TestProperty); //Singleton retains property values
-        }
-
-        [TestMethod]
-        public void TestIgnoreDuplicateRegistrationsWithUnresolvedDependency()
-        {
-            var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
+            Assert.IsFalse(iocContainer.IsRegistered<ITransientTest>(KEY));
 
             iocContainer.InitContainer();
+            iocContainer.Register(KEY,
+                typeof(ITransientTest), typeof(TransientTestObject));
 
-            iocContainer.Register(typeof(ISingletonObjectWithDependencyTest), typeof(SingletonTestObjectWithDependency));
-
-            iocContainer.IgnoreDuplicateRegisterRequests = true;
-            iocContainer.Register(typeof(ISingletonObjectWithDependencyTest), typeof(SingletonTestObjectWithDependency)); //Should not throw an exception
-            iocContainer.IgnoreDuplicateRegisterRequests = false;
-
-            iocContainer.Register(typeof(ISingletonTestDependencyObject), 
-                                typeof(SingletonTestDependencyObject));
-
-
-            var testObject = iocContainer.Resolve<ISingletonObjectWithDependencyTest>();
-            Assert.IsNotNull(iocContainer);
-            Assert.IsNotNull(testObject.MyDependency);
-        }
-
-        [TestMethod]
-        public void TestIgnoreDuplicateRegistrationsWithKey()
-        {
-            var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
-
-            const string KEY = "Singleton";
-            var testObject = iocContainer.Resolve<IIocTestSingleton>(KEY);
-            Assert.IsNotNull(iocContainer);
-            Assert.IsNull(testObject.TestProperty);
-
-            const string TEST_VALUE = "TestValue";
-            testObject.TestProperty = TEST_VALUE;
-
-            testObject = iocContainer.Resolve<IIocTestSingleton>(KEY);
-            Assert.AreEqual(TEST_VALUE, testObject.TestProperty); //Singleton retains property values    
-
-            iocContainer.IgnoreDuplicateRegisterRequests = true;
-            iocContainer.Register<IIocTestSingleton, SingletonTestObject>(KEY); //Container should ignore this Register request
-            testObject = iocContainer.Resolve<IIocTestSingleton>(KEY);
-            Assert.AreEqual(TEST_VALUE, testObject.TestProperty); //Singleton retains property values    
+            Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>(KEY));
         }
 
         [TestMethod]
@@ -201,8 +129,11 @@ namespace IntrepidProducts.IocContainer.Tests
 
             var iocContainer = IocFactoryAbstract.GetContainer();
             iocContainer.InitContainer();
-            iocContainer.RegisterInstance<IIocTestSingleton>(MY_INSTANCE1_KEY, originalInstance1);
-            iocContainer.RegisterInstance<IIocTestSingleton>(MY_INSTANCE2_KEY, originalInstance2);
+            iocContainer.RegisterInstance<IIocTestSingleton>
+                (MY_INSTANCE1_KEY,originalInstance1);
+
+            iocContainer.RegisterInstance<IIocTestSingleton>
+                (MY_INSTANCE2_KEY, originalInstance2);
 
             var instance1FromIoC = iocContainer.Resolve<IIocTestSingleton>(MY_INSTANCE1_KEY);
             var instance2FromIoC = iocContainer.Resolve<IIocTestSingleton>(MY_INSTANCE2_KEY);
@@ -216,15 +147,16 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ResolveAll()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            var services = iocContainer.ResolveAll(typeof (ITransientTest)).ToList();
+            var services = iocContainer.ResolveAll<ITransientTest>()
+                .ToList();
 
             Assert.IsTrue((from s in services
-                where s.GetType() == typeof(TransientTestObject)
-                select s).Any());
+                           where s.GetType() == typeof(TransientTestObject)
+                           select s).Any());
 
             Assert.IsTrue((from s in services
-                where s.GetType() == typeof(TransientTestObject2)
-                select s).Any());
+                           where s.GetType() == typeof(TransientTestObject2)
+                           select s).Any());
         }
     }
 }

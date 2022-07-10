@@ -5,8 +5,6 @@ namespace IntrepidProducts.IocContainer
 {
     public interface IIocContainer
     {
-        bool IgnoreDuplicateRegisterRequests { get; set; }
-
         void Register(Type fromType, Type concreteType);
         void Register(string key, Type fromType, Type concreteType);
         void Register(Type type);
@@ -25,12 +23,13 @@ namespace IntrepidProducts.IocContainer
 
         void RegisterTransient(string key, Type fromType, Type concreteType);
 
-        bool IsRegistered(Type type);
-        bool IsRegistered(string key);
+        bool IsRegistered<T>();
+        bool IsRegistered<T>(string key);
 
         T Resolve<T>();
         T Resolve<T>(string key);
-        IEnumerable<object> ResolveAll(Type type);
+
+        IEnumerable<T> ResolveAll<T>();
 
         void InitContainer();
     }
