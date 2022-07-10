@@ -13,21 +13,27 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldReportWhetherInterfaceIsRegistered()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>());
-            iocContainer.InitContainer();
+
+            //Nothing registered...
             Assert.IsFalse(iocContainer.IsRegistered<ITransientTest>());
+            iocContainer.InitContainer();
+
+            iocContainer.RegisterTransient
+            (typeof(ITransientTest),
+                typeof(TransientTestObject));
+
+            Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>());
         }
 
         [TestMethod]
         public void ShouldReportWhetherKeyIsRegistered()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            iocContainer.InitContainer();
             const string KEY = "MyKey";
 
             Assert.IsFalse(iocContainer.IsRegistered<ITransientTest>(KEY));
-
             iocContainer.InitContainer();
+
             iocContainer.Register(KEY,
                 typeof(ITransientTest), typeof(TransientTestObject));
 
@@ -38,9 +44,13 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldInstantiateNewInstancesWhenTransientResolvedWithInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
+
+            iocContainer.RegisterTransient
+            (typeof(ITransientTest),
+                typeof(TransientTestObject));
 
             var testObject = iocContainer.Resolve<ITransientTest>();
+
             Assert.IsNotNull(iocContainer);
             Assert.IsNull(testObject.TestProperty);
 
@@ -55,9 +65,13 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKey()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
 
             const string KEY = "Transient";
+
+            iocContainer.RegisterTransient(KEY,
+                typeof(ITransientTest),
+                typeof(TransientTestObject));
+
             var testObject = iocContainer.Resolve<ITransientTest>(KEY);
             Assert.IsNotNull(iocContainer);
             Assert.IsNull(testObject.TestProperty);
@@ -73,7 +87,10 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
+
+            iocContainer.Register
+                (typeof(IIocTestSingleton),
+                    typeof(SingletonTestObject));
 
             var testObject = iocContainer.Resolve<IIocTestSingleton>();
             Assert.IsNotNull(iocContainer);
@@ -90,9 +107,13 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithKey()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
-            Assert.IsNotNull(iocContainer);
 
             const string KEY = "Singleton";
+
+            iocContainer.Register(KEY,
+                typeof(IIocTestSingleton),
+                typeof(SingletonTestObject));
+
             var testObject = iocContainer.Resolve<IIocTestSingleton>(KEY);
             Assert.IsNotNull(iocContainer);
             Assert.IsNull(testObject.TestProperty);
@@ -147,6 +168,15 @@ namespace IntrepidProducts.IocContainer.Tests
         public void ShouldProvideCollectionOfAllObjectsImplementedByAnInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
+
+            iocContainer.RegisterTransient("ResolveAllTestObject",
+                typeof(ITransientTest),
+                typeof(TransientTestObject2));
+
+            iocContainer.RegisterTransient("Transient",
+                typeof(ITransientTest),
+                typeof(TransientTestObject));
+
             var services = iocContainer.ResolveAll<ITransientTest>()
                 .ToList();
 

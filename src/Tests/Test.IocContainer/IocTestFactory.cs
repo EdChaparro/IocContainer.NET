@@ -1,6 +1,4 @@
-﻿using IntrepidProducts.IocContainer.Tests.TestObjects;
-
-namespace IntrepidProducts.IocContainer.Tests
+﻿namespace IntrepidProducts.IocContainer.Tests
 {
     public class IocTestFactory : IocFactoryAbstract
     {
@@ -9,19 +7,7 @@ namespace IntrepidProducts.IocContainer.Tests
 
         public override void RegisterClasses()
         {
-            IocContainer.RegisterTransient
-                (typeof(ITransientTest), typeof(TransientTestObject));
-
-            IocContainer.RegisterTransient("ResolveAllTestObject",
-                typeof(ITransientTest),
-                typeof(TransientTestObject2));
-
-            IocContainer.RegisterTransient("Transient",
-                typeof(ITransientTest),
-                typeof(TransientTestObject));
-
-            IocContainer.Register(typeof(IIocTestSingleton), typeof(SingletonTestObject));
-            IocContainer.Register("Singleton", typeof(IIocTestSingleton), typeof(SingletonTestObject));
-         }
+            //Moved registrations to individual unit tests to improve clarity
+        }
     }
 }

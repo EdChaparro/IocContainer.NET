@@ -10,7 +10,6 @@ namespace IntrepidProducts.IocContainer.Tests.Strategy
         public void Init()
         {
             IocTestFactory = new IocTestFactory(new AutofacStrategy());
-            IocTestFactory.RegisterClasses();
         }
     }
 }

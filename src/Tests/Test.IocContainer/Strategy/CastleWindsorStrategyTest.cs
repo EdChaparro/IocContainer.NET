@@ -1,6 +1,4 @@
-﻿using Castle.MicroKernel;
-using IntrepidProducts.IocContainer.Strategy;
-using IntrepidProducts.IocContainer.Tests.TestObjects;
+﻿using IntrepidProducts.IocContainer.Strategy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IntrepidProducts.IocContainer.Tests.Strategy
@@ -12,7 +10,6 @@ namespace IntrepidProducts.IocContainer.Tests.Strategy
         public void Init()
         {
             IocTestFactory = new IocTestFactory(new CastleWindsorStrategy());
-            IocTestFactory.RegisterClasses();
         }
     }
 }
