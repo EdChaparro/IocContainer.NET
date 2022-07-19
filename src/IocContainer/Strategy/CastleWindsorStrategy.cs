@@ -34,34 +34,29 @@ namespace IntrepidProducts.IocContainer.Strategy
             RegisterTransient(type.ToString(), type, type);
         }
 
-        public override void Register(Type abstractType, Object obj)
+        public override void RegisterInstance(Type abstractType, Object instance)
         {
-            _container.Register(Component.For(abstractType).ImplementedBy(obj.GetType()).Named(abstractType.ToString()));
+            _container.Register(Component.For(abstractType).Instance(instance));
         }
 
-        public override void Register(Type abstractType, Type concreteType, bool useDefaultConstructor)
+        public override void RegisterSingleton<I, T>()
         {
-            Register(abstractType, concreteType);
+            RegisterSingleton(typeof(I), typeof(T));
         }
 
-        public override void Register<I, T>()
+        public override void RegisterSingleton(Type type)
         {
-            Register(typeof(I), typeof(T));
+            RegisterSingleton(type, type);
         }
 
-        public override void Register(Type type)
-        {
-            Register(type, type);
-        }
-
-        public override void Register(Type abstractType, Type concreteType)
+        public override void RegisterSingleton(Type abstractType, Type concreteType)
         {
             _container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType)
                 .LifeStyle.Is(LifestyleType.Singleton));
         }
 
-        public override void Register(string key, Type abstractType, Type concreteType)
+        public override void RegisterSingleton(string key, Type abstractType, Type concreteType)
         {
             _container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType).Named(key)
@@ -78,11 +73,6 @@ namespace IntrepidProducts.IocContainer.Strategy
         public override void RegisterInstance<T>(string key, T instance) where T : class
         {
             _container.Register(Component.For<T>().Named(key).Instance(instance));
-        }
-
-        public override void RegisterInstance(Type fromType, object instance)
-        {
-            _container.Register(Component.For(fromType).Instance(instance));
         }
 
         public override T Resolve<T>()
