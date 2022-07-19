@@ -34,7 +34,7 @@ namespace IntrepidProducts.IocContainer.Tests
             Assert.IsFalse(iocContainer.IsRegistered<ITransientTest>(KEY));
             iocContainer.InitContainer();
 
-            iocContainer.Register(KEY,
+            iocContainer.RegisterSingleton(KEY,
                 typeof(ITransientTest), typeof(TransientTestObject));
 
             Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>(KEY));
@@ -88,7 +88,7 @@ namespace IntrepidProducts.IocContainer.Tests
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
 
-            iocContainer.Register
+            iocContainer.RegisterSingleton
                 (typeof(IIocTestSingleton),
                     typeof(SingletonTestObject));
 
@@ -110,7 +110,7 @@ namespace IntrepidProducts.IocContainer.Tests
 
             const string KEY = "Singleton";
 
-            iocContainer.Register(KEY,
+            iocContainer.RegisterSingleton(KEY,
                 typeof(IIocTestSingleton),
                 typeof(SingletonTestObject));
 

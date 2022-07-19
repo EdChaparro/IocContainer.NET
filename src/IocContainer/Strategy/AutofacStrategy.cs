@@ -53,36 +53,31 @@ namespace IntrepidProducts.IocContainer.Strategy
             _builder.RegisterType(type).InstancePerDependency();
         }
 
-        public override void Register(Type abstractType, Object obj)
+        public override void RegisterInstance(Type abstractType, Object instance)
         {
-            _builder.RegisterInstance(obj).As(abstractType);
+            _builder.RegisterInstance(instance).As(abstractType);
         }
 
-        public override void Register(Type abstractType, Type concreteType, bool useDefaultConstructor)
+        public override void RegisterSingleton<I, T>()
         {
-            Register(abstractType, concreteType);
+            RegisterSingleton(typeof(I), typeof(T));
         }
 
-        public override void Register<I, T>()
+        public override void RegisterSingleton(Type type)
         {
-            Register(typeof(I), typeof(T));
+            RegisterSingleton(type, type);
         }
 
-        public override void Register(Type type)
+        public override void RegisterSingleton(Type abstractType, Type concreteType)
         {
-            Register(type, type);
+            _builder.RegisterType(concreteType).As(abstractType).SingleInstance();
         }
 
-        public override void Register(Type abstractType, Type concreteType)
-        {
-            _builder.RegisterType(concreteType).As(abstractType).InstancePerLifetimeScope();
-        }
-
-        public override void Register(string key, Type abstractType, Type concreteType)
+        public override void RegisterSingleton(string key, Type abstractType, Type concreteType)
         {
             _builder.RegisterType(concreteType).Named(key, abstractType)
                 .As(abstractType)
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
 
         public override void RegisterInstance<T>(T instance) where T : class
@@ -94,12 +89,6 @@ namespace IntrepidProducts.IocContainer.Strategy
         {
             _builder.RegisterInstance(instance)
                 .Keyed<T>(key).SingleInstance();
-        }
-
-        public override void RegisterInstance(Type fromType, object instance)
-        {
-            _builder.RegisterInstance(instance).As(fromType)
-                .InstancePerMatchingLifetimeScope();
         }
 
         public override T Resolve<T>()
