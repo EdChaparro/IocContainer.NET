@@ -9,6 +9,7 @@ namespace IntrepidProducts.IocContainer.Tests
     {
         protected IocTestFactory IocTestFactory { get; set; }
 
+        #region IsRegistered
         [TestMethod]
         public void ShouldReportWhetherInterfaceIsRegistered()
         {
@@ -39,9 +40,11 @@ namespace IntrepidProducts.IocContainer.Tests
 
             Assert.IsTrue(iocContainer.IsRegistered<ITransientTest>(KEY));
         }
+        #endregion
 
+        #region Register Transient
         [TestMethod]
-        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithInterface()
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithInterfaceRegisteredWithTypeObjects()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
 
@@ -62,7 +65,26 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKey()
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithInterfaceRegisteredGenerically()
+        {
+            var iocContainer = IocFactoryAbstract.GetContainer();
+
+            iocContainer.RegisterTransient<ITransientTest, TransientTestObject>();
+
+            var testObject = iocContainer.Resolve<ITransientTest>();
+
+            Assert.IsNotNull(iocContainer);
+            Assert.IsNull(testObject.TestProperty);
+
+            const string TEST_VALUE = "TestValue";
+            testObject.TestProperty = TEST_VALUE;
+
+            testObject = iocContainer.Resolve<ITransientTest>();
+            Assert.IsNull(testObject.TestProperty); //Transient value doesn't retain property values
+        }
+
+        [TestMethod]
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKeyRegisteredWithTypeObjects()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
 
@@ -84,6 +106,29 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKeyRegisteredWithGenerically()
+        {
+            var iocContainer = IocFactoryAbstract.GetContainer();
+
+            const string KEY = "Transient";
+
+            iocContainer.RegisterTransient<ITransientTest, TransientTestObject>(KEY);
+
+            var testObject = iocContainer.Resolve<ITransientTest>(KEY);
+            Assert.IsNotNull(iocContainer);
+            Assert.IsNull(testObject.TestProperty);
+
+            const string TEST_VALUE = "TestValue";
+            testObject.TestProperty = TEST_VALUE;
+
+            testObject = iocContainer.Resolve<ITransientTest>(KEY);
+            Assert.IsNull(testObject.TestProperty); //Transient value doesn't retain property values
+        }
+
+        #endregion
+
+        #region Register Singleton
+        [TestMethod]
         public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithInterface()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
@@ -102,7 +147,9 @@ namespace IntrepidProducts.IocContainer.Tests
             testObject = iocContainer.Resolve<IIocTestSingleton>();
             Assert.AreEqual(TEST_VALUE, testObject.TestProperty); //Singleton retains property values
         }
+        #endregion
 
+        #region Register Instance
         [TestMethod]
         public void ShouldInstantiateSameInstancesWhenSingletonResolvedWithKey()
         {
@@ -163,6 +210,7 @@ namespace IntrepidProducts.IocContainer.Tests
             Assert.AreEqual(MY_INSTANCE1_KEY, instance1FromIoC.TestProperty);
             Assert.AreEqual(MY_INSTANCE2_KEY, instance2FromIoC.TestProperty);
         }
+        #endregion
 
         [TestMethod]
         public void ShouldProvideCollectionOfAllObjectsImplementedByAnInterface()

@@ -18,9 +18,9 @@ namespace IntrepidProducts.IocContainer
 
 
         void RegisterTransient(Type type);
-
+        void RegisterTransient<I, T>() where T : I, new();
         void RegisterTransient(Type abstractType, Type concreteType);
-
+        void RegisterTransient<I, T>(string key) where T : I, new();
         void RegisterTransient(string key, Type abstractType, Type concreteType);
 
         bool IsRegistered<T>();
