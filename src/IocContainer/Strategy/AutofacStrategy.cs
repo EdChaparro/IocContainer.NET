@@ -114,6 +114,7 @@ namespace IntrepidProducts.IocContainer.Strategy
         public override void Release(object component)
         {
             Scope.Dispose();
+            _scope = null;
         }
 
         public override bool IsRegistered<T>()
