@@ -85,11 +85,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             return _container.Resolve<T>(key);
         }
 
-        public override object Resolve(Type type)
-        {
-            return _container.Resolve(type);
-        }
-
         public override IEnumerable<T> ResolveAll<T>()
         {
             return _container.Kernel.ResolveAll<T>();
@@ -105,24 +100,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             try
             {
                 Resolve<T>();
-                return true;
-            }
-            catch (HandlerException)
-            {
-                return true;
-            }
-
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public override bool IsRegistered(Type type)
-        {
-            try
-            {
-                Resolve(type);
                 return true;
             }
             catch (HandlerException)
