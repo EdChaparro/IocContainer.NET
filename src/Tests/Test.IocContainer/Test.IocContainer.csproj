@@ -20,7 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\IocContainer\IocContainer.csproj" />
+    <ProjectReference Include="..\..\Ioc\IocContainer\IocContainer.csproj" />
+    <ProjectReference Include="..\..\Ioc\Strategies\AutofacStrategy\AutofacStrategy.csproj" />
+    <ProjectReference Include="..\..\Ioc\Strategies\CastleWindsorStrategy\CastleWindsorStrategy.csproj" />
+    <ProjectReference Include="..\..\Ioc\Strategies\MicrosoftStrategy\MicrosoftStrategy.csproj" />
   </ItemGroup>
 
 </Project>

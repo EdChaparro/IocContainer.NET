@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IntrepidProducts.IocContainer.Strategy
+namespace IntrepidProducts.IocContainer
 {
     public abstract class StrategyAbstract : IIocContainer
     {

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using IntrepidProducts.IoC.MicrosoftStrategy;
+using IntrepidProducts.IocContainer;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IntrepidProducts.IocContainer.Strategy
+namespace IntrepidProducts.Ioc.MicrosoftStrategy
 {
     public class MicrosoftStrategy : StrategyAbstract
     {
