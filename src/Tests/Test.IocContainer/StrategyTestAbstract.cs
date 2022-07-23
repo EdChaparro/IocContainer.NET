@@ -162,7 +162,7 @@ namespace IntrepidProducts.IocContainer.Tests
                 typeof(SingletonTestObject));
 
             var testObject = iocContainer.Resolve<IIocTestSingleton>(KEY);
-            Assert.IsNotNull(iocContainer);
+            Assert.IsNotNull(testObject);
             Assert.IsNull(testObject.TestProperty);
 
             const string TEST_VALUE = "TestValue";
