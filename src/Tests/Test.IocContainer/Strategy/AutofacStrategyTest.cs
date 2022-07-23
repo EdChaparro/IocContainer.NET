@@ -1,4 +1,4 @@
-﻿using IntrepidProducts.Ioc.AutofacStrategy;
+﻿using IntrepidProducts.IoC.AutofacStrategy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IntrepidProducts.IocContainer.Tests.Strategy

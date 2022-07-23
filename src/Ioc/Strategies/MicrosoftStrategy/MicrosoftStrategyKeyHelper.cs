@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using IntrepidProducts.IocContainer;
 
-namespace IntrepidProducts.Ioc.MicrosoftStrategy
+namespace IntrepidProducts.IoC.MicrosoftStrategy
 {
     public class MicrosoftStrategyKeyHelper
     {

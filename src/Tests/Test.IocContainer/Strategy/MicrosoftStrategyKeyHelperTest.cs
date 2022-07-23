@@ -1,4 +1,4 @@
-﻿using IntrepidProducts.Ioc.MicrosoftStrategy;
+﻿using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer.Tests.TestObjects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

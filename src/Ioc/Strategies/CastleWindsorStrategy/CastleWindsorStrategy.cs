@@ -6,7 +6,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using IntrepidProducts.IocContainer;
 
-namespace IntrepidProducts.Ioc.CastleWindsorStrategy
+namespace IntrepidProducts.IoC.CastleWindsorStrategy
 {
     public class CastleWindsorStrategy : StrategyAbstract
     {

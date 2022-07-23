@@ -4,7 +4,7 @@ using Autofac;
 using Autofac.Core.Registration;
 using IntrepidProducts.IocContainer;
 
-namespace IntrepidProducts.Ioc.AutofacStrategy
+namespace IntrepidProducts.IoC.AutofacStrategy
 {
     public class AutofacStrategy : StrategyAbstract
     {

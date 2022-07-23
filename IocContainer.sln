@@ -7,17 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.IocContainer", "src\Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FF6902C7-A65F-4A4F-9E3D-09D544DE7F79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{98006B13-DF0D-4842-ADFE-505C5BE4A3EF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoC", "IoC", "{98006B13-DF0D-4842-ADFE-505C5BE4A3EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocContainer", "src\Ioc\IocContainer\IocContainer.csproj", "{EE82E03A-8041-4EAA-BE65-9C0D49CF11EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Strategies", "Strategies", "{E1A4B448-3D9A-4C2D-8D48-CE8AB32B559F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacStrategy", "src\Ioc\Strategies\AutofacStrategy\AutofacStrategy.csproj", "{6506024F-25EA-4E6E-BE5B-B95E46E9DA35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutofacStrategy", "src\Ioc\Strategies\AutofacStrategy\AutofacStrategy.csproj", "{6506024F-25EA-4E6E-BE5B-B95E46E9DA35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosoftStrategy", "src\Ioc\Strategies\MicrosoftStrategy\MicrosoftStrategy.csproj", "{D4C1E24D-7734-445C-BD3B-55A5F185EE57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrosoftStrategy", "src\Ioc\Strategies\MicrosoftStrategy\MicrosoftStrategy.csproj", "{D4C1E24D-7734-445C-BD3B-55A5F185EE57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CastleWindsorStrategy", "src\Ioc\Strategies\CastleWindsorStrategy\CastleWindsorStrategy.csproj", "{AB1EB436-E8C5-4C72-8C09-33B4DBD78F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastleWindsorStrategy", "src\Ioc\Strategies\CastleWindsorStrategy\CastleWindsorStrategy.csproj", "{AB1EB436-E8C5-4C72-8C09-33B4DBD78F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

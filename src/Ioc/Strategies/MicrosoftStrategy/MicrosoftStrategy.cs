@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using Microsoft.Extensions.DependencyInjection;
 
