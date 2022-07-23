@@ -6,4 +6,8 @@
     <RootNamespace>IntrepidProducts.Ioc.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\IocContainer\IocContainer.csproj" />
+  </ItemGroup>
+
 </Project>
