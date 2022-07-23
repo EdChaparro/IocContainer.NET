@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IocContainer\IocContainer.csproj" />
+    <ProjectReference Include="..\..\Ioc\IocContainer\IocContainer.csproj" />
   </ItemGroup>
 
 </Project>
