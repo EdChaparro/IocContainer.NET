@@ -102,6 +102,8 @@ namespace IntrepidProducts.IocContainer.Strategy
         public override void Release(object component)
         {
             _serviceProvider = null;
+            _serviceCollection = new ServiceCollection();
+            _helper = new MicrosoftStrategyKeyHelper();
         }
 
         public override bool IsRegistered<T>()
