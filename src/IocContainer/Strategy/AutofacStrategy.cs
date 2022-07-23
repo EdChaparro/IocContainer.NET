@@ -101,11 +101,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             return Scope.ResolveNamed<T>(key);
         }
 
-        public override object Resolve(Type type)
-        {
-            return Scope.Resolve(type);
-        }
-
         public override IEnumerable<T> ResolveAll<T>()
         {
             return Scope.Resolve<IEnumerable<T>>();
@@ -127,24 +122,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             catch (ComponentNotRegisteredException)
             {
                 return false;
-            }
-
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public override bool IsRegistered(Type type)
-        {
-            try
-            {
-                Resolve(type);
-                return true;
-            }
-            catch (ComponentNotRegisteredException)
-            {
-                return true;
             }
 
             catch (Exception)

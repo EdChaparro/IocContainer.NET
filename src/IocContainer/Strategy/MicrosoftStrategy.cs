@@ -94,11 +94,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             return _helper.Resolve<T>(ServiceProvider, key);
         }
 
-        public override object Resolve(Type type)
-        {
-            return ServiceProvider.GetService(type);
-        }
-
         public override IEnumerable<T> ResolveAll<T>()
         {
             return _helper.ResolveAll<T>(ServiceProvider);
@@ -107,6 +102,8 @@ namespace IntrepidProducts.IocContainer.Strategy
         public override void Release(object component)
         {
             _serviceProvider = null;
+            _serviceCollection = new ServiceCollection();
+            _helper = new MicrosoftStrategyKeyHelper();
         }
 
         public override bool IsRegistered<T>()
@@ -114,19 +111,6 @@ namespace IntrepidProducts.IocContainer.Strategy
             try
             {
                 Resolve<T>();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public override bool IsRegistered(Type type)
-        {
-            try
-            {
-                Resolve(type);
                 return true;
             }
             catch (Exception)
