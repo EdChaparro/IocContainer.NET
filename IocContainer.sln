@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.IocContainer", "src\Tests\Test.IocContainer\Test.IocContainer.csproj", "{B429C8F2-4414-4096-9B6C-5ECD93724F66}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FF6902C7-A65F-4A4F-9E3D-09D544DE7F79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoC", "IoC", "{98006B13-DF0D-4842-ADFE-505C5BE4A3EF}"
@@ -21,11 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastleWindsorStrategy", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Strategies", "Strategies", "{DEBD6824-3D80-4F8F-9EEB-9D7FA6F613B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacStrategyTest", "src\Tests\Strategies\AutofacStrategyTest\AutofacStrategyTest.csproj", "{65FDF628-9A8B-438F-BAF8-C61825D49884}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutofacStrategyTest", "src\Tests\Strategies\AutofacStrategyTest\AutofacStrategyTest.csproj", "{65FDF628-9A8B-438F-BAF8-C61825D49884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CastleWindsorStrategyTest", "src\Tests\Strategies\CastleWindsorStrategyTest\CastleWindsorStrategyTest.csproj", "{E3AB6D51-4918-418B-B302-A36723D6D267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastleWindsorStrategyTest", "src\Tests\Strategies\CastleWindsorStrategyTest\CastleWindsorStrategyTest.csproj", "{E3AB6D51-4918-418B-B302-A36723D6D267}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosoftStrategyTest", "src\Tests\Strategies\MicrosoftStrategyTest\MicrosoftStrategyTest.csproj", "{E146176C-B6B3-4B3F-86B1-568106A232DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrosoftStrategyTest", "src\Tests\Strategies\MicrosoftStrategyTest\MicrosoftStrategyTest.csproj", "{E146176C-B6B3-4B3F-86B1-568106A232DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocContainerTest", "src\Tests\IocContainerTest\IocContainerTest.csproj", "{13A60814-7A99-4585-A33E-00E2E384AC0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Debug|x64.ActiveCfg = Debug|x64
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Debug|x64.Build.0 = Debug|x64
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Release|x64.ActiveCfg = Release|x64
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66}.Release|x64.Build.0 = Release|x64
 		{EE82E03A-8041-4EAA-BE65-9C0D49CF11EF}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{EE82E03A-8041-4EAA-BE65-9C0D49CF11EF}.Debug|Any CPU.Build.0 = Debug|x64
 		{EE82E03A-8041-4EAA-BE65-9C0D49CF11EF}.Debug|x64.ActiveCfg = Debug|x64
@@ -99,12 +91,19 @@ Global
 		{E146176C-B6B3-4B3F-86B1-568106A232DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E146176C-B6B3-4B3F-86B1-568106A232DB}.Release|x64.ActiveCfg = Release|Any CPU
 		{E146176C-B6B3-4B3F-86B1-568106A232DB}.Release|x64.Build.0 = Release|Any CPU
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Debug|x64.ActiveCfg = Debug|x64
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Debug|x64.Build.0 = Debug|x64
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Release|x64.ActiveCfg = Release|x64
+		{13A60814-7A99-4585-A33E-00E2E384AC0A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B429C8F2-4414-4096-9B6C-5ECD93724F66} = {FF6902C7-A65F-4A4F-9E3D-09D544DE7F79}
 		{EE82E03A-8041-4EAA-BE65-9C0D49CF11EF} = {98006B13-DF0D-4842-ADFE-505C5BE4A3EF}
 		{E1A4B448-3D9A-4C2D-8D48-CE8AB32B559F} = {98006B13-DF0D-4842-ADFE-505C5BE4A3EF}
 		{6506024F-25EA-4E6E-BE5B-B95E46E9DA35} = {E1A4B448-3D9A-4C2D-8D48-CE8AB32B559F}
@@ -114,6 +113,7 @@ Global
 		{65FDF628-9A8B-438F-BAF8-C61825D49884} = {DEBD6824-3D80-4F8F-9EEB-9D7FA6F613B4}
 		{E3AB6D51-4918-418B-B302-A36723D6D267} = {DEBD6824-3D80-4F8F-9EEB-9D7FA6F613B4}
 		{E146176C-B6B3-4B3F-86B1-568106A232DB} = {DEBD6824-3D80-4F8F-9EEB-9D7FA6F613B4}
+		{13A60814-7A99-4585-A33E-00E2E384AC0A} = {FF6902C7-A65F-4A4F-9E3D-09D544DE7F79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2D5816B-CEBE-4C9C-8807-5C479C91B724}
