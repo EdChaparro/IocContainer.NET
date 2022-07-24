@@ -106,7 +106,7 @@ namespace IntrepidProducts.IocContainer.Tests
         }
 
         [TestMethod]
-        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKeyRegisteredWithGenerically()
+        public void ShouldInstantiateNewInstancesWhenTransientResolvedWithKeyRegisteredGenerically()
         {
             var iocContainer = IocFactoryAbstract.GetContainer();
 
@@ -190,25 +190,25 @@ namespace IntrepidProducts.IocContainer.Tests
         [TestMethod]
         public void ShouldResolveToProvidedInstanceWhenResolvedWithKey()
         {
-            const string MY_INSTANCE1_KEY = "MyInstance1";
-            const string MY_INSTANCE2_KEY = "MyInstance2";
-            var originalInstance1 = new SingletonTestObject { TestProperty = MY_INSTANCE1_KEY };
-            var originalInstance2 = new SingletonTestObject { TestProperty = MY_INSTANCE2_KEY };
+            const string INSTANCE1_KEY = "MyInstance1";
+            const string INSTANCE2_KEY = "MyInstance2";
+            var originalInstance1 = new SingletonTestObject { TestProperty = INSTANCE1_KEY };
+            var originalInstance2 = new SingletonTestObject { TestProperty = INSTANCE2_KEY };
 
             var iocContainer = IocFactoryAbstract.GetContainer();
             iocContainer.InitContainer();
             iocContainer.RegisterInstance<IIocTestSingleton>
-                (MY_INSTANCE1_KEY,originalInstance1);
+                (INSTANCE1_KEY,originalInstance1);
 
             iocContainer.RegisterInstance<IIocTestSingleton>
-                (MY_INSTANCE2_KEY, originalInstance2);
+                (INSTANCE2_KEY, originalInstance2);
 
-            var instance1FromIoC = iocContainer.Resolve<IIocTestSingleton>(MY_INSTANCE1_KEY);
-            var instance2FromIoC = iocContainer.Resolve<IIocTestSingleton>(MY_INSTANCE2_KEY);
-            Assert.IsNotNull(instance1FromIoC);
-            Assert.IsNotNull(instance2FromIoC);
-            Assert.AreEqual(MY_INSTANCE1_KEY, instance1FromIoC.TestProperty);
-            Assert.AreEqual(MY_INSTANCE2_KEY, instance2FromIoC.TestProperty);
+            var resolvedInstance1 = iocContainer.Resolve<IIocTestSingleton>(INSTANCE1_KEY);
+            var resolvedInstance2 = iocContainer.Resolve<IIocTestSingleton>(INSTANCE2_KEY);
+            Assert.IsNotNull(resolvedInstance1);
+            Assert.IsNotNull(resolvedInstance2);
+            Assert.AreEqual(INSTANCE1_KEY, resolvedInstance1.TestProperty);
+            Assert.AreEqual(INSTANCE2_KEY, resolvedInstance2.TestProperty);
         }
         #endregion
 
