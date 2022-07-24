@@ -1,7 +1,7 @@
-﻿using IntrepidProducts.IoC.AutofacStrategy;
+using IntrepidProducts.IocContainer.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.IocContainer.Tests.Strategy
+namespace IntrepidProducts.IoC.AutofacStrategyTest
 {
     [TestClass]
     public class AutofacStrategyTest : StrategyTestAbstract
@@ -9,7 +9,7 @@ namespace IntrepidProducts.IocContainer.Tests.Strategy
         [TestInitialize]
         public void Init()
         {
-            IocTestFactory = new IocTestFactory(new AutofacStrategy());
+            IocTestFactory = new IocTestFactory(new AutofacStrategy.AutofacStrategy());
         }
     }
 }

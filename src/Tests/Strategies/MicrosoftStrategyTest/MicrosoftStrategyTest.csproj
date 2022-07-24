@@ -17,4 +17,9 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ioc\Strategies\MicrosoftStrategy\MicrosoftStrategy.csproj" />
+    <ProjectReference Include="..\..\IocContainerTest\IocContainerTest.csproj" />
+  </ItemGroup>
+
 </Project>
