@@ -3,7 +3,7 @@ using IntrepidProducts.IocContainer.Tests.TestObjects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.IocContainer.Tests.Strategy
+namespace IntrepidProducts.IoC.MicrosoftStrategyTest
 {
     [TestClass]
     public class MicrosoftStrategyKeyHelperTest

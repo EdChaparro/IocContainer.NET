@@ -1,7 +1,7 @@
-﻿using IntrepidProducts.Ioc.MicrosoftStrategy;
+using IntrepidProducts.IocContainer.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.IocContainer.Tests.Strategy
+namespace IntrepidProducts.IoC.MicrosoftStrategyTest
 {
     [TestClass]
     public class MicrosoftStrategyTest : StrategyTestAbstract
@@ -9,7 +9,7 @@ namespace IntrepidProducts.IocContainer.Tests.Strategy
         [TestInitialize]
         public void Init()
         {
-            IocTestFactory = new IocTestFactory(new MicrosoftStrategy());
+            IocTestFactory = new IocTestFactory(new MicrosoftStrategy.MicrosoftStrategy());
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using IntrepidProducts.IoC.CastleWindsorStrategy;
+using IntrepidProducts.IocContainer.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.IocContainer.Tests.Strategy
+namespace IntrepidProducts.IoC.CastleWindsorStrategyTest
 {
     [TestClass]
     public class CastleWindsorStrategyTest : StrategyTestAbstract
@@ -9,7 +9,7 @@ namespace IntrepidProducts.IocContainer.Tests.Strategy
         [TestInitialize]
         public void Init()
         {
-            IocTestFactory = new IocTestFactory(new CastleWindsorStrategy());
+            IocTestFactory = new IocTestFactory(new CastleWindsorStrategy.CastleWindsorStrategy());
         }
     }
 }
