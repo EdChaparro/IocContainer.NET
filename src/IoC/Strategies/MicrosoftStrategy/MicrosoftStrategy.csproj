@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>IntrepidProducts.IoC.$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>IntrepidProducts.IoC.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <Platforms>x64</Platforms>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
