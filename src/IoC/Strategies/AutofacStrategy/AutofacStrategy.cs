@@ -8,20 +8,22 @@ namespace IntrepidProducts.IoC.AutofacStrategy
 {
     public class AutofacStrategy : StrategyAbstract
     {
-        private ContainerBuilder _builder = new ContainerBuilder();
+        public AutofacStrategy(ContainerBuilder? containerBuilder = null)
+        {
+            _builder = containerBuilder;
+        }
 
-        private ILifetimeScope _scope;
+        private ContainerBuilder? _builder;
+
+        private ContainerBuilder Builder
+        {
+            get { return _builder ??= new ContainerBuilder(); }
+        }
+
+        private ILifetimeScope? _scope;
         private ILifetimeScope Scope
         {
-            get
-            {
-                if (_scope == null)
-                {
-                    _scope = _builder.Build().BeginLifetimeScope();
-                }
-
-                return _scope;
-            }
+            get { return _scope ??= Builder.Build().BeginLifetimeScope(); }
         }
 
         public override void InitContainer()
@@ -38,12 +40,12 @@ namespace IntrepidProducts.IoC.AutofacStrategy
 
         public override void RegisterTransient(Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).As(abstractType);
+            Builder.RegisterType(concreteType).As(abstractType);
         }
 
         public override void RegisterTransient(string key, Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType)
+            Builder.RegisterType(concreteType)
                 .Keyed(key, abstractType)
                 .As(abstractType)
                 .InstancePerDependency();
@@ -51,12 +53,12 @@ namespace IntrepidProducts.IoC.AutofacStrategy
 
         public override void RegisterTransient(Type type)
         {
-            _builder.RegisterType(type).InstancePerDependency();
+            Builder.RegisterType(type).InstancePerDependency();
         }
 
         public override void RegisterInstance(Type abstractType, Object instance)
         {
-            _builder.RegisterInstance(instance).As(abstractType);
+            Builder.RegisterInstance(instance).As(abstractType);
         }
 
         public override void RegisterSingleton<I, T>()
@@ -71,24 +73,24 @@ namespace IntrepidProducts.IoC.AutofacStrategy
 
         public override void RegisterSingleton(Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).As(abstractType).SingleInstance();
+            Builder.RegisterType(concreteType).As(abstractType).SingleInstance();
         }
 
         public override void RegisterSingleton(string key, Type abstractType, Type concreteType)
         {
-            _builder.RegisterType(concreteType).Named(key, abstractType)
+            Builder.RegisterType(concreteType).Named(key, abstractType)
                 .As(abstractType)
                 .SingleInstance();
         }
 
         public override void RegisterInstance<T>(T instance) where T : class
         {
-            _builder.RegisterInstance(instance).As<T>().SingleInstance();
+            Builder.RegisterInstance(instance).As<T>().SingleInstance();
         }
 
         public override void RegisterInstance<T>(string key, T instance) where T : class
         {
-            _builder.RegisterInstance(instance)
+            Builder.RegisterInstance(instance)
                 .Keyed<T>(key).SingleInstance();
         }
 
