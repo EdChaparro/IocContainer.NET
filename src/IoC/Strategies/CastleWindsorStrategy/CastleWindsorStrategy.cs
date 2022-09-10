@@ -10,13 +10,13 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 {
     public class CastleWindsorStrategy : StrategyAbstract
     {
-        public CastleWindsorStrategy(WindsorContainer? container = null)
+        public CastleWindsorStrategy(IWindsorContainer? container = null)
         {
             _container = container;
         }
 
-        private WindsorContainer? _container;
-        private WindsorContainer Container
+        private IWindsorContainer? _container;
+        private IWindsorContainer Container
         {
             get { return _container ??= new WindsorContainer(); }
         }
