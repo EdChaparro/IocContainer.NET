@@ -10,7 +10,16 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 {
     public class CastleWindsorStrategy : StrategyAbstract
     {
-        private WindsorContainer _container = new WindsorContainer();
+        public CastleWindsorStrategy(WindsorContainer? container = null)
+        {
+            _container = container;
+        }
+
+        private WindsorContainer? _container;
+        private WindsorContainer Container
+        {
+            get { return _container ??= new WindsorContainer(); }
+        }
 
         public override void InitContainer()
         {
@@ -24,7 +33,7 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 
         public override void RegisterTransient(string key, Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(abstractType)
+            Container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType)
                 .Named(key).LifeStyle
                 .Is(LifestyleType.Transient));
@@ -37,7 +46,7 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 
         public override void RegisterInstance(Type abstractType, Object instance)
         {
-            _container.Register(Component.For(abstractType).Instance(instance));
+            Container.Register(Component.For(abstractType).Instance(instance));
         }
 
         public override void RegisterSingleton<I, T>()
@@ -52,48 +61,46 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 
         public override void RegisterSingleton(Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(abstractType)
+            Container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType)
                 .LifeStyle.Is(LifestyleType.Singleton));
         }
 
         public override void RegisterSingleton(string key, Type abstractType, Type concreteType)
         {
-            _container.Register(Component.For(abstractType)
+            Container.Register(Component.For(abstractType)
                 .ImplementedBy(concreteType).Named(key)
                 .LifeStyle.Is(LifestyleType.Singleton));
         }
 
         public override void RegisterInstance<T>(T instance) where T : class
         {
-            var fromType = typeof(T);
-
-            _container.Register(Component.For<T>().Instance(instance));
+            Container.Register(Component.For<T>().Instance(instance));
         }
 
         public override void RegisterInstance<T>(string key, T instance) where T : class
         {
-            _container.Register(Component.For<T>().Named(key).Instance(instance));
+            Container.Register(Component.For<T>().Named(key).Instance(instance));
         }
 
         public override T Resolve<T>()
         {
-            return (T)_container.Resolve(typeof (T));
+            return (T)Container.Resolve(typeof (T));
         }
 
         public override T Resolve<T>(string key)
         {
-            return _container.Resolve<T>(key);
+            return Container.Resolve<T>(key);
         }
 
         public override IEnumerable<T> ResolveAll<T>()
         {
-            return _container.Kernel.ResolveAll<T>();
+            return Container.Kernel.ResolveAll<T>();
         }
 
         public override void Release(object component)
         {
-            _container.Release(component);           
+            Container.Release(component);
         }
 
         public override bool IsRegistered<T>()
