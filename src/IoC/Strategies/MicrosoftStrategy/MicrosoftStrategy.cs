@@ -7,7 +7,7 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 {
     public class MicrosoftStrategy : StrategyAbstract
     {
-        public MicrosoftStrategy(ServiceCollection? serviceCollection = null)
+        public MicrosoftStrategy(IServiceCollection? serviceCollection = null)
         {
             _serviceCollection = serviceCollection;
         }
