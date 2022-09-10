@@ -1,4 +1,3 @@
-using IntrepidProducts.IocContainer;
 using IntrepidProducts.IocContainer.Tests;
 using IntrepidProducts.IocContainer.Tests.TestObjects;
 using Microsoft.Extensions.DependencyInjection;

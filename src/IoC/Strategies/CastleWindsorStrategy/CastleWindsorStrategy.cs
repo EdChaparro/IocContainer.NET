@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Castle.Core;
+﻿using Castle.Core;
 using Castle.MicroKernel.Handlers;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using IntrepidProducts.IocContainer;
+using System;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.IoC.CastleWindsorStrategy
 {
@@ -85,7 +85,7 @@ namespace IntrepidProducts.IoC.CastleWindsorStrategy
 
         public override T Resolve<T>()
         {
-            return (T)Container.Resolve(typeof (T));
+            return (T)Container.Resolve(typeof(T));
         }
 
         public override T Resolve<T>(string key)

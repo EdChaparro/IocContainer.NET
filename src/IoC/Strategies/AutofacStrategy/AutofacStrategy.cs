@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using Autofac.Core.Registration;
 using IntrepidProducts.IocContainer;
+using System;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.IoC.AutofacStrategy
 {

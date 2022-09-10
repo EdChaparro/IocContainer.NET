@@ -1,6 +1,6 @@
 ﻿namespace IntrepidProducts.IocContainer
 {
-    public abstract class IocFactoryAbstract 
+    public abstract class IocFactoryAbstract
     {
         protected IocFactoryAbstract(IIocContainer iocContainer)
         {
@@ -13,7 +13,7 @@
 
         public static IIocContainer GetContainer()
         {
-            return IocContainer;          
+            return IocContainer;
         }
     }
 }

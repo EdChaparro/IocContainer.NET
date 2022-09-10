@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using IntrepidProducts.IocContainer;
+﻿using IntrepidProducts.IocContainer;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.IoC.MicrosoftStrategy
 {
@@ -90,7 +90,7 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 
         public override T Resolve<T>()
         {
-            var resolvedObject =  ServiceProvider.GetService(typeof(T));
+            var resolvedObject = ServiceProvider.GetService(typeof(T));
 
             if (resolvedObject == null)
             {
