@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using IntrepidProducts.IocContainer.Tests.TestObjects;
+﻿using IntrepidProducts.IocContainer.Tests.TestObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace IntrepidProducts.IocContainer.Tests
 {
@@ -198,7 +198,7 @@ namespace IntrepidProducts.IocContainer.Tests
             var iocContainer = IocFactoryAbstract.GetContainer();
             iocContainer.InitContainer();
             iocContainer.RegisterInstance<IIocTestSingleton>
-                (INSTANCE1_KEY,originalInstance1);
+                (INSTANCE1_KEY, originalInstance1);
 
             iocContainer.RegisterInstance<IIocTestSingleton>
                 (INSTANCE2_KEY, originalInstance2);

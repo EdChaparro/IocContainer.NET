@@ -3,7 +3,7 @@
     public class IocTestFactory : IocFactoryAbstract
     {
         public IocTestFactory(IIocContainer iocContainer) : base(iocContainer)
-        {}
+        { }
 
         public override void RegisterClasses()
         {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using IntrepidProducts.IocContainer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using IntrepidProducts.IocContainer;
 
 namespace IntrepidProducts.IoC.MicrosoftStrategy
 {

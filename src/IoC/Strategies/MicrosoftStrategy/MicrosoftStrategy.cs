@@ -1,22 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using IntrepidProducts.IocContainer;
+﻿using IntrepidProducts.IocContainer;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.IoC.MicrosoftStrategy
 {
     public class MicrosoftStrategy : StrategyAbstract
     {
-        private IServiceProvider _serviceProvider;
-        private IServiceCollection _serviceCollection = new ServiceCollection();
+        public MicrosoftStrategy(ServiceCollection? serviceCollection = null)
+        {
+            _serviceCollection = serviceCollection;
+        }
+
+        private IServiceProvider? _serviceProvider;
+        private IServiceCollection? _serviceCollection;
 
         private MicrosoftStrategyKeyHelper _helper = new MicrosoftStrategyKeyHelper();
+
+        private IServiceCollection ServiceCollection
+        {
+            get { return _serviceCollection ??= new ServiceCollection(); }
+        }
 
         private IServiceProvider ServiceProvider
         {
             get
             {
-                return _serviceProvider ??= _serviceCollection.BuildServiceProvider();
+                return _serviceProvider ??= ServiceCollection.BuildServiceProvider();
             }
         }
 
@@ -29,12 +39,12 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 
         public override void RegisterTransient(Type abstractType, Type concreteType)
         {
-            _serviceCollection.AddTransient(abstractType, concreteType);
+            ServiceCollection.AddTransient(abstractType, concreteType);
         }
 
         public override void RegisterTransient(string key, Type abstractType, Type concreteType)
         {
-            _serviceCollection.AddTransient(concreteType);
+            ServiceCollection.AddTransient(concreteType);
             _helper.Register(abstractType, concreteType, key);
         }
 
@@ -45,12 +55,12 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 
         public override void RegisterInstance(Type abstractType, Object instance)
         {
-            _serviceCollection.AddSingleton(abstractType, instance);
+            ServiceCollection.AddSingleton(abstractType, instance);
         }
 
         public override void RegisterInstance<T>(T instance) where T : class
         {
-            _serviceCollection.AddSingleton(typeof(T), instance);
+            ServiceCollection.AddSingleton(typeof(T), instance);
         }
 
         public override void RegisterInstance<T>(string key, T instance) where T : class
@@ -60,7 +70,7 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 
         public override void RegisterSingleton<I, T>()
         {
-            _serviceCollection.AddSingleton(typeof(T));
+            ServiceCollection.AddSingleton(typeof(T));
         }
 
         public override void RegisterSingleton(Type type)
@@ -70,17 +80,17 @@ namespace IntrepidProducts.IoC.MicrosoftStrategy
 
         public override void RegisterSingleton(Type abstractType, Type concreteType)
         {
-            _serviceCollection.AddSingleton(abstractType, concreteType);
+            ServiceCollection.AddSingleton(abstractType, concreteType);
         }
         public override void RegisterSingleton(string key, Type abstractType, Type concreteType)
         {
-            _serviceCollection.AddSingleton(concreteType);
+            ServiceCollection.AddSingleton(concreteType);
             _helper.Register(abstractType, concreteType, key);
         }
 
         public override T Resolve<T>()
         {
-            var resolvedObject =  ServiceProvider.GetService(typeof(T));
+            var resolvedObject = ServiceProvider.GetService(typeof(T));
 
             if (resolvedObject == null)
             {
